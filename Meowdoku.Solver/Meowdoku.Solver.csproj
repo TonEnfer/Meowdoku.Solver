@@ -37,7 +37,7 @@
       underlying partial-AOT interaction (or issue 8 itself) is fixed upstream.
     -->
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-        <RunAOTCompilation>true</RunAOTCompilation>
+        <RunAOTCompilation>false</RunAOTCompilation>
     </PropertyGroup>
 
     <!--

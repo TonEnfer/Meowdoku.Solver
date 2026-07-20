@@ -16,8 +16,8 @@ env:
   # dotnet/runtime#114723: the wasm-opt bundled with the current wasm-tools workload predates
   # binaryen PR #7106 (bulk-memory-opt / call-indirect-overlong), so Release publish fails.
   # Swap in a newer binaryen build before publishing. Bump these together when updating.
-  BINARYEN_VERSION: version_130
-  BINARYEN_SHA256: 0a18362361ad05465118cd8eeb72edaeec89de6894bc283576ef4e07aa3babcc
+  BINARYEN_VERSION: version_131
+  BINARYEN_SHA256: b5bf1f0eaf17c63ee588ff7a5954dc8f6ce2c26989051c66f24dfe9ece3e46db
 
 jobs:
   build:
