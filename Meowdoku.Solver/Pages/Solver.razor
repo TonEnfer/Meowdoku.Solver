@@ -3,12 +3,12 @@
 
 <div class="page-content">
     <div style="display: flex; flex-direction: column; align-items: center;">
-        <label class="file-selector" for="image-selector">Загрузи скриншот уровня</label>
+        <label class="file-selector" for="image-selector">Загрузите скриншот уровня</label>
         <InputFile id="image-selector" hidden OnChange="LoadFileAsync"/>
         <div>@DetectionResult</div>
     </div>
     <div>или</div>
-    <div>раскрась вручную:</div>
+    <div>раскрасьте вручную:</div>
     <div class="game-settings">
         <div>Размер поля</div>
         <input style="width: 100%; height: 2rem; padding: 8px;" @bind="GameSize"/>

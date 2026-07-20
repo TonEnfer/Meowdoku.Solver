@@ -167,6 +167,9 @@ input{
 
 /* ----- Адаптивность ----- */
 @media (max-width: 640px) {
+    body{
+        padding: 0;
+    }
     .app-content {
         padding: 1.5rem 1.2rem;
         border-radius: 1.5rem;
