@@ -23,7 +23,7 @@ public partial class Solver : ComponentBase, IDisposable
     } = [];
     private Dictionary<string, string> DefaultColors = new()
     {
-        ["1"] = "#f89be5",
+        ["1"] = "#fbd983",
         ["2"] = "#d36f90",
         ["3"] = "#8cd57d",
         ["4"] = "#37a9c0",
@@ -31,7 +31,7 @@ public partial class Solver : ComponentBase, IDisposable
         ["6"] = "#a76d4a",
         ["7"] = "#298c53",
         ["8"] = "#cda400",
-        ["9"] = "#fbd983",
+        ["9"] = "#f89be5",
         ["10"] = "#FFA500",
         ["11"] = "#00A5FF",
         ["12"] = "#A5FF00",
@@ -39,7 +39,7 @@ public partial class Solver : ComponentBase, IDisposable
     
     private Dictionary<string, string> Colors = new()
     {
-        ["1"] = "#f89be5",
+        ["1"] = "#fbd983",
         ["2"] = "#d36f90",
         ["3"] = "#8cd57d",
         ["4"] = "#37a9c0",
@@ -47,7 +47,7 @@ public partial class Solver : ComponentBase, IDisposable
         ["6"] = "#a76d4a",
         ["7"] = "#298c53",
         ["8"] = "#cda400",
-        ["9"] = "#fbd983",
+        ["9"] = "#f89be5",
         ["10"] = "#FFA500",
         ["11"] = "#00A5FF",
         ["12"] = "#A5FF00",
