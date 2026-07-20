@@ -7,7 +7,7 @@
         <InputFile id="image-selector" hidden OnChange="LoadFileAsync"/>
         <div>@DetectionResult</div>
     </div>
-    <div style="display: flex; flex-direction: row; gap: 16px; width: 100%; height: auto;    justify-content: center;
+    <div style="display: flex; flex-direction: row; gap: 16px; width: 100%; height: auto; justify-content: center;
     align-items: center;">
         <button @onclick="OnClickSolveAsync">Решить
         </button>
@@ -38,16 +38,16 @@
         }
     </div>
     <div class="game-settings">
-        <div style="display: flex; flex-direction: row; gap: 8px; align-items: center;">
+        <div style="display: flex; flex-direction: row; gap: 8px; align-items: center; justify-content: space-evenly;">
             <p>Размер поля</p>
-            <input style="width: 100%; height: 2rem; padding: 8px;" @bind="GameSize"/>
+            <input style="width: fit-content; height: 2rem; padding: 8px;" @bind="GameSize"/>
         </div>
         <div class="game-colors-wrapper">
             @foreach (var color in Colors.TakeWhile(c => int.Parse(c.Key) <= GameSize))
             {
                 <div
                     class="game-color @(CurrentColor == color.Key ? "active" : string.Empty)"
-                    style="background-color: @color.Value"
+                    style="--color: @color.Value"
                     @onclick="() => { CurrentColor = color.Key; }">
                 </div>
             }

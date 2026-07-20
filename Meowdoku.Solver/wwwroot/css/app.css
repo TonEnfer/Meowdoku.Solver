@@ -24,12 +24,14 @@ button{
     border-radius: 12px;
     border: 1px solid #e2e8f0;
     padding: 8px;
+    font-size: 1rem;
 }
 input{
     background: #f8fafc;
     border-radius: 12px;
     border: 1px solid #e2e8f0;
     padding: 8px;
+    font-size: 1rem;
 }
 
 /* ----- Обёртка контента ----- */

@@ -94,7 +94,7 @@ public partial class Solver : ComponentBase, IDisposable
     private async Task OnClickSolveAsync()
     {
         Result = null;
-        Result = await Game.SolveAsync() ? " 🎉Решено! 🎉" : "Не получилось решить";
+        Result = await Game.SolveAsync() ? " 🎉Решено!" : "Не получилось решить";
     }
 
     private async Task LoadFileAsync(InputFileChangeEventArgs e)
