@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace Meowdoku.Solver.Pages;
 
@@ -7,12 +8,8 @@ public partial class Solver : ComponentBase, IDisposable
     private IDisposable? _subscription;
 
     [Parameter]
-    public string? Locale
-    {
-        get;
-        set => field = value ?? "en";
-    } = "en";
-
+    public string? DetectionResult { get; set; }
+    
     private string? Result { get; set; }
 
     private byte[] ImgBytes
@@ -24,7 +21,20 @@ public partial class Solver : ComponentBase, IDisposable
             StateHasChanged();
         }
     } = [];
-
+    private Dictionary<string, string> DefaultColors = new()
+    {
+        ["1"] = "#f89be5",
+        ["2"] = "#d36f90",
+        ["3"] = "#8cd57d",
+        ["4"] = "#37a9c0",
+        ["5"] = "#8979da",
+        ["6"] = "#a76d4a",
+        ["7"] = "#298c53",
+        ["8"] = "#cda400",
+        ["9"] = "#fbd983",
+        ["10"] = "#FFA500",
+    };
+    
     private Dictionary<string, string> Colors = new()
     {
         ["1"] = "#f89be5",
@@ -58,6 +68,7 @@ public partial class Solver : ComponentBase, IDisposable
         set
         {
             field = value;
+            Colors = new Dictionary<string, string>(DefaultColors);
             Game = new Game(field);
         }
     } = 4;
@@ -70,5 +81,68 @@ public partial class Solver : ComponentBase, IDisposable
     public void Dispose()
     {
         _subscription?.Dispose();
+    }
+    
+    private async Task OnClickSolveAsync()
+    {
+        Result = null;
+        Result = await Game.SolveAsync() ? " 🎉Решено! 🎉" : "Не получилось решить";
+    }
+
+    private async Task LoadFileAsync(InputFileChangeEventArgs e)
+    {
+        Result = null;
+        DetectionResult = null;
+        
+        // Get the selected file
+        var file = e.File;
+
+        // Define a maximum allowed size (e.g., 50 MB) to protect memory
+        const long maxFileSize = 1024 * 1024 * 50;
+
+        // Open a stream to read the file contents
+        await using var stream = file.OpenReadStream(maxFileSize);
+        using var memoryStream = new MemoryStream();
+
+        await stream.CopyToAsync(memoryStream);
+        var fileBytes = memoryStream.ToArray();
+
+        ImgBytes = fileBytes;
+
+        StateHasChanged();
+
+        try
+        {
+            var result = GridDetector.DetectGrid(ref fileBytes);
+            if (result.Cols != result.Rows)
+            {
+                DetectionResult = "При распознавании произошла ошибка: обнаружено количество столбцов, не равное количеству строк";
+            }
+
+            GameSize = result.Cols;
+            
+            Colors.Clear();
+            
+            foreach (var color in result.Cells.Select(x => x.Color).Distinct().Select((x, i) => (index: (i + 1).ToString(), name: $"#{x.Name[2..]}")))
+            {
+                Colors.Add(color.index, color.name);
+            }
+            
+            Game = new Game(result.Cols);
+            
+            foreach (var gameCell in Game.Cells)
+            {
+                var originalCell = result.Cells.First(x => x.Col == gameCell.Index.Y && x.Row == gameCell.Index.X);
+                var colorIndex = Colors
+                    .FirstOrDefault(x => x.Value == $"#{originalCell.Color.Name[2..]}");
+                gameCell.Color = colorIndex.Key;
+            }
+
+            await OnClickSolveAsync();
+        }
+        catch (Exception ex)
+        {
+            DetectionResult = $"При распознавании произошла ошибка: {ex.Message}";
+        }
     }
 }
