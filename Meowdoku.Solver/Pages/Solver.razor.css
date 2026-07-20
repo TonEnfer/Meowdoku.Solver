@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
     width: 100%;
     height: auto;
 }
@@ -30,7 +30,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 8px;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
 }
 .file-selector{
@@ -56,10 +56,11 @@
 
 .game-settings{
     display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: auto auto;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
     gap: 8px;
     width: 100%;
+    align-items: center;
 }
 
 .game-color {
@@ -71,8 +72,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2rem;
+    height: 2rem;
     padding: 4px;
     gap: 1px;
     border-radius: 20%;
