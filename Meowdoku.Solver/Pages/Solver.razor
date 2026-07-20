@@ -3,10 +3,12 @@
 
 <div class="page-content">
     <div style="display: flex; flex-direction: column; align-items: center;  gap: 12px">
-        <InputFile OnChange="LoadFileAsync"/>
+        <label class="file-selector" for="image-selector">Загрузи скриншот уровня</label>
+        <InputFile id="image-selector" hidden OnChange="LoadFileAsync"/>
         <div>@DetectionResult</div>
     </div>
-    <div style="display: flex; flex-direction: row; gap: 16px;">
+    <div style="display: flex; flex-direction: row; gap: 16px; width: 100%; height: auto;    justify-content: center;
+    align-items: center;">
         <button @onclick="OnClickSolveAsync">Решить
         </button>
         <button
@@ -36,7 +38,10 @@
         }
     </div>
     <div class="game-settings">
-        <input style="width: 100%; height: 2rem; padding: 8px;" @bind="GameSize"/>
+        <div style="display: flex; flex-direction: row; gap: 8px; align-items: center;">
+            <p>Размер поля</p>
+            <input style="width: 100%; height: 2rem; padding: 8px;" @bind="GameSize"/>
+        </div>
         <div class="game-colors-wrapper">
             @foreach (var color in Colors.TakeWhile(c => int.Parse(c.Key) <= GameSize))
             {
