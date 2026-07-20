@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Meowdoku Solver</title>
+    <base href="/"/>
+    <link rel="preload" id="webassembly"/>
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/app.css"/>
+    <link rel="icon" type="image/png" href="favicon.png"/>
+    <link href="Meowdoku.Solver.styles.css" rel="stylesheet"/>
+    <script type="importmap"></script>
+</head>
+
+<body>
+<div class="app-content-wrapper"
+     style="width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center">
+    <div class="app-content"
+         style="display: flex; flex-direction: column; width: 60%; align-items: center; justify-content: center">
+        <div class="app-description" style="width: 100%;">
+            <p>
+                Вы устали тратить часы на сложные уровни в Meowdoku? Я создал веб-приложение, чтобы избавить вас от
+                рутины поиска правильных комбинаций. Это не клон игры, а полноценный солвер (решатель), который
+                анализирует любой уровень из оригинальной Meowdoku и за секунды находит единственно верное решение.
+                Больше никаких подсказок и бесконечных переборов – просто загрузите скриншот и получите чёткий ответ.
+            </p>
+            <details>
+                <summary>Работает полностью в вашем браузере – безопасно и конфиденциально</summary>
+
+                <p>
+                    Все вычисления происходят локально на вашем устройстве.
+                    Приложение не отправляет ваши скриншоты, данные уровня или историю решений на какие-либо серверы.
+                    Вся обработка изображений и логика поиска решения выполняются исключительно в браузере.
+                    Вам не нужно регистрироваться, вводить пароли или доверять свои данные третьим лицам.
+                </p>
+            </details>
+
+            <details>
+                <summary>Автоматическое распознавание уровней со скриншотов – забудьте о ручном вводе</summary>
+                <p>
+                    Вам больше не придётся переписывать цифры и цвета с экрана телефона вручную. Приложение использует
+                    интеллектуальный алгоритм компьютерного зрения, который считывает скриншот уровня Meowdoku и
+                    мгновенно воссоздаёт игровое поле.
+                    Достаточно сделать снимок экрана в игре, загрузить его в решатель – и через долю секунды Вы увидите
+                    готовое решение со всеми расставленными элементами.
+                    Это экономит время и исключает ошибки ввода.
+                </p>
+            </details>
+            <details>
+                <summary>
+                    Открытый исходный код и ваша поддержка
+                </summary>
+                <p>
+                    Я верю в прозрачность и сообщество. Весь код решателя доступен на GitHub, чтобы Вы могли убедиться в
+                    его безопасности, изучить алгоритмы или даже доработать проект под свои нужды. Если приложение вам
+                    помогло, пожалуйста, поставьте звезду (⭐) в нашем репозитории – это лучший способ сказать "спасибо"
+                    и помочь проекту расти. Ссылка на GitHub: [вставьте ссылку].
+                </p>
+            </details>
+            <details>
+                <summary>Развитие и обратная связь</summary>
+                <p>
+                    Ваши отзывы и предложения вы можете оставить на странице проекта на GitHub.
+                    Присоединяйтесь к числу пользователей, которые уже решили сотни
+                    уровней Meowdoku в два клика – без боли, без серверов, без лишних движений. Просто скриншот, и
+                    решение у вас в руках!
+                </p>
+            </details>
+        </div>
+
+        <div id="app" style="width: 100%; height: 100%">
+            <div class="loading-progress">
+                <span style="--h:0;--d:0.0s"></span>
+                <span style="--h:15;--d:0.2s"></span>
+                <span style="--h:30;--d:0.4s"></span>
+                <span style="--h:60;--d:0.8s;"></span>
+                <span style="--h:75;--d:1.0s">
+                <div class="loading-progress-text"></div>
+            </span>
+                <span style="--h:90;--d:1.2s"></span>
+                <span style="--h:120;--d:1.6s"></span>
+                <span style="--h:135;--d:1.8s"></span>
+                <span style="--h:150;--d:2.0s"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="." class="reload">Reload</a>
+    <span class="dismiss">Dismiss</span>
+</div>
+<script src="_framework/blazor.webassembly#[.{fingerprint}].js"></script>
+</body>
+
+</html>

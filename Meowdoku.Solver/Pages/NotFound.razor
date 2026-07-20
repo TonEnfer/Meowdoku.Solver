@@ -1,0 +1,15 @@
+﻿@page "/not-found"
+@layout MainLayout
+
+<h3>Not Found</h3>
+<p>Sorry, the content you are looking for on @NavigationManager?.Uri does not exist.</p>
+
+@code
+{
+    [Inject] private NavigationManager? NavigationManager { get; set; }
+
+    // protected override void OnInitialized()
+    // {
+    //     NavigationManager?.NavigateTo("/en", forceLoad: true);
+    // }
+}
