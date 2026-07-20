@@ -70,7 +70,7 @@
     -->
     <ItemGroup Condition="'$(WasmBuildNative)' == 'true'">
         <WasmOptConfigurationFlags Include="--enable-nontrapping-float-to-int" />
-<!--        <WasmOptConfigurationFlags Include="&#45;&#45;enable-bulk-memory-opt" />-->
+        <WasmOptConfigurationFlags Include="--enable-bulk-memory-opt" />
         <WasmOptConfigurationFlags Include="--enable-call-indirect-overlong" />
         <WasmOptConfigurationFlags Include="--enable-multivalue" />
         <WasmOptConfigurationFlags Include="--enable-mutable-globals" />

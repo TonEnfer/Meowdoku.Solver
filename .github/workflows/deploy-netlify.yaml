@@ -19,6 +19,17 @@ jobs:
     - name: Restore workloads
       run: dotnet workload restore
 
+    - name: Work around outdated bundled wasm-opt (dotnet/runtime#114723)
+      run: |
+        set -euo pipefail
+        WASM_OPT_PATH=$(find /usr/share/dotnet/packs -type f -name 'wasm-opt' | head -1)
+        echo "Patching: $WASM_OPT_PATH"
+        curl -sSL -o binaryen.tar.gz "https://github.com/WebAssembly/binaryen/releases/download/${BINARYEN_VERSION}/binaryen-${BINARYEN_VERSION}-x86_64-linux.tar.gz"
+        echo "${BINARYEN_SHA256}  binaryen.tar.gz" | sha256sum -c -
+        tar xzf binaryen.tar.gz
+        cp "binaryen-${BINARYEN_VERSION}/bin/wasm-opt" "$WASM_OPT_PATH"
+        "$WASM_OPT_PATH" --version
+        
     - name: Publish Application
       run: dotnet publish -c Release -o release
 
