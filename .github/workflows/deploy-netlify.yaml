@@ -3,6 +3,21 @@ name: Deploy Blazor WASM to Netlify
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  # dotnet/runtime#114723: the wasm-opt bundled with the current wasm-tools workload predates
+  # binaryen PR #7106 (bulk-memory-opt / call-indirect-overlong), so Release publish fails.
+  # Swap in a newer binaryen build before publishing. Bump these together when updating.
+  BINARYEN_VERSION: version_130
+  BINARYEN_SHA256: 0a18362361ad05465118cd8eeb72edaeec89de6894bc283576ef4e07aa3babcc
 
 jobs:
   deploy:
