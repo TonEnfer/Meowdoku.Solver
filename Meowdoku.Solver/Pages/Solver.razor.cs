@@ -33,6 +33,8 @@ public partial class Solver : ComponentBase, IDisposable
         ["8"] = "#cda400",
         ["9"] = "#fbd983",
         ["10"] = "#FFA500",
+        ["11"] = "#00A5FF",
+        ["12"] = "#A5FF00",
     };
     
     private Dictionary<string, string> Colors = new()
@@ -47,7 +49,10 @@ public partial class Solver : ComponentBase, IDisposable
         ["8"] = "#cda400",
         ["9"] = "#fbd983",
         ["10"] = "#FFA500",
+        ["11"] = "#00A5FF",
+        ["12"] = "#A5FF00",
     };
+
 
     private string CurrentColor = "1";
 
@@ -67,9 +72,12 @@ public partial class Solver : ComponentBase, IDisposable
         get;
         set
         {
-            field = value;
+            field = Math.Clamp(value, 4, 12);
             Colors = new Dictionary<string, string>(DefaultColors);
             Game = new Game(field);
+            Result = null;
+            DetectionResult = null;
+
         }
     } = 4;
 
