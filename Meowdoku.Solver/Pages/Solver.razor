@@ -20,6 +20,7 @@
                     class="game-color @(CurrentColor == color.Key ? "active" : string.Empty)"
                     style="--color: @color.Value"
                     @onclick="() => { CurrentColor = color.Key; }">
+                    @color.Key
                 </div>
             }
         </div>
@@ -29,12 +30,15 @@
         {
             @foreach (var cell in row)
             {
-                <div class="game-cell"
-                     style="background-color:  @GetColor(cell.Color);"
-                     @ontouchend="() => {  cell.IsEmpty = null; cell.Color = CurrentColor; }"
+                <div class="game-cell @(CurrentColor == cell.Color ? "active" : string.Empty)"
+                     style="--color:  @GetColor(cell.Color);"
+                     @ontouchend="() => { cell.IsEmpty = null; cell.Color = CurrentColor; }"
                      @onmouseover="args => { if (args.Buttons == 1) { cell.IsEmpty = null; cell.Color = CurrentColor; }else { Console.WriteLine(cell.Rule); } }"
                      @onmousedown="args => { if (args.Buttons == 1) { cell.IsEmpty = null; cell.Color = CurrentColor; }else { Console.WriteLine(cell.Rule); } }">
-                    @(cell.IsEmpty.HasValue ? cell.IsEmpty.Value ? "✖️" : "🐈‍⬛" : string.Empty)
+                    <p class="color-number">
+                        @cell.Color
+                    </p>
+                    <p class="cell-state @(cell.IsEmpty.HasValue ? string.Empty : "hidden")">@(cell.IsEmpty.HasValue ? cell.IsEmpty.Value ? "✖️" : "😺" : string.Empty)</p>
                 </div>
             }
         }
