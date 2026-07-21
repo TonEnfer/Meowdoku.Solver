@@ -2,7 +2,7 @@
 ![WebAssembly](https://img.shields.io/badge/WebAssembly-black?logo=webassembly)
 ![OpenCV](https://img.shields.io/badge/OpenCV-black?logo=opencv)
 
-# A WebAssembly- and computer vision-based level solver for Meowdoku!
+# A WebAssembly- and computer vision-based open-source level solver for Meowdoku!
 
 The app allows you to solve levels from the mobile game Meowdoku! ([Google Play](https://play.google.com/store/apps/details?id=com.oakever.meowdoku), [App Store](https://apps.apple.com/us/app/meowdoku/id6761760135))
 
