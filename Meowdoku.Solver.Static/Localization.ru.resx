@@ -1,0 +1,56 @@
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="page-title" xml:space="preserve">
+        <value>Бесплатный решатель уровней Meowdoku! Найди ответ на любую кошачью головоломку</value>
+    </data>
+    <data name="page-summary-descr" xml:space="preserve">
+        <value>Быстро, безопасно и совершенно бесплатно решайте уровни из Meowdoku! Найдите решения, ответы, подсказки для любого уровня</value>
+    </data>
+    <data name="descr-summary" xml:space="preserve">
+        <value>Вы устали тратить часы на сложные уровни в Meowdoku? Я создал веб-приложение, чтобы избавить вас от рутины поиска правильных комбинаций. Быстро, безопасно и совершенно бесплатно. Это не клон игры, а полноценный солвер (решатель), который анализирует любой уровень из оригинальной Meowdoku и за секунды находит единственно верное решение.  Больше никаких подсказок и бесконечных переборов – просто загрузите скриншот и получите чёткий ответ.</value>
+    </data>
+    <data name="original-game-title" xml:space="preserve">
+        <value>Ссылки на игру</value>
+    </data>
+    <data name="local-work-title" xml:space="preserve">
+        <value>Работает полностью в вашем браузере – безопасно и конфиденциально</value>
+    </data>
+    <data name="local-work-description" xml:space="preserve">
+        <value>Все вычисления происходят локально на вашем устройстве. Приложение не отправляет ваши скриншоты, данные уровня или историю решений на какие-либо серверы. Вся обработка изображений и логика поиска решения выполняются исключительно в браузере.  Вам не нужно регистрироваться, вводить пароли или доверять свои данные третьим лицам.</value>
+    </data>
+    <data name="auto-recognition-title" xml:space="preserve">
+        <value>Автоматическое распознавание уровней со скриншотов – забудьте о ручном вводе</value>
+    </data>
+    <data name="auto-recognition-description" xml:space="preserve">
+        <value>Вам больше не придётся переписывать цифры и цвета с экрана телефона вручную. Приложение использует интеллектуальный алгоритм компьютерного зрения, который считывает скриншот уровня Meowdoku и  мгновенно воссоздаёт игровое поле.  Достаточно сделать снимок экрана в игре, загрузить его в решатель – и через долю секунды Вы увидите  готовое решение со всеми расставленными элементами. Это экономит время и исключает ошибки ввода.</value>
+    </data>
+    <data name="open-source-title" xml:space="preserve">
+        <value>Открытый исходный код и ваша поддержка</value>
+    </data>
+    <data name="open-source-description" xml:space="preserve">
+        <value>Я верю в прозрачность и сообщество. Весь код решателя доступен на  &lt;a href="https://github.com/TonEnfer/Meowdoku.Solver"&gt; &lt;img style="width: 1rem" src="assets/github.svg" alt="Github"&gt; GitHub &lt;/a&gt;, чтобы Вы могли убедиться в его безопасности, изучить алгоритмы или даже доработать проект под  свои нужды. Если приложение вам помогло, пожалуйста, поставьте звезду (⭐) в репозитории проекта –  это лучший способ сказать "спасибо".</value>
+    </data>
+    <data name="feedback-title" xml:space="preserve">
+        <value>Развитие и обратная связь</value>
+    </data>
+    <data name="feedback-description" xml:space="preserve">
+        <value>Ваши отзывы и предложения вы можете оставить на странице проекта на  &lt;a href="https://github.com/TonEnfer/Meowdoku.Solver/issues"&gt; &lt;img style="width: 1rem" src="assets/github.svg" alt="Github"&gt;  GitHub&lt;/a&gt;.</value>
+    </data>
+    <data name="sell-text" xml:space="preserve">
+        <value>Присоединяйтесь к числу пользователей, которые уже решили сотни уровней Meowdoku в два клика – без боли, без серверов, без лишних движений. Просто скриншот, и решение у вас в руках!</value>
+    </data>
+    <data name="start-button-text" xml:space="preserve">
+        <value>Найти решение!</value>
+    </data>
+</root>

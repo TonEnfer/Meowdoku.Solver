@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="LoadScreenText" xml:space="preserve">
+        <value>Upload a screenshot of the level</value>
+    </data>
+    <data name="OrText" xml:space="preserve">
+        <value>or</value>
+    </data>
+    <data name="ColorManuallyText" xml:space="preserve">
+        <value>color the level manually</value>
+    </data>
+    <data name="GameFieldSizeText" xml:space="preserve">
+        <value>Game field size:</value>
+    </data>
+    <data name="AvailableColorsText" xml:space="preserve">
+        <value>Avalilable colors</value>
+    </data>
+    <data name="ClearGameFieldText" xml:space="preserve">
+        <value>Clear game field</value>
+    </data>
+    <data name="SolveLevelText" xml:space="preserve">
+        <value>Solve</value>
+    </data>
+    <data name="ErrorSolutionResultText" xml:space="preserve">
+        <value>Couldn't solve it 😢</value>
+    </data>
+    <data name="SuccessSolutionResultText" xml:space="preserve">
+        <value>🎉Solved!</value>
+    </data>
+    <data name="ErrorGridDetectionText" xml:space="preserve">
+        <value>An error occurred during recognition: {0}</value>
+    </data>
+    <data name="GridDetectionRowColCountNotEqualText" xml:space="preserve">
+        <value>The number of columns found is not equal to the number of rows</value>
+    </data>
+    <data name="FileSizeTooSmallText" xml:space="preserve">
+        <value>File size too small!</value>
+    </data>
+    <data name="TooLittleSquaresErrorText" xml:space="preserve">
+        <value>Couldn't find enough squares in the image. Found {0}</value>
+    </data>
+    <data name="GridDetector_ClusterColors_Clusters_count_must_be_positive" xml:space="preserve">
+        <value>Clusters count must be positive</value>
+    </data>
+    <data name="ColumnsCountMismatchErrorText" xml:space="preserve">
+        <value>Column count mismatch: expected {0}, got {1}</value>
+    </data>
+</root>

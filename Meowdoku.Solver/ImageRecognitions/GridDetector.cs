@@ -1,12 +1,16 @@
-using System.Diagnostics;
-using OpenCvSharp;
 using System.Drawing;
+using Microsoft.Extensions.Localization;
+using OpenCvSharp;
 using TreeStructures.Linq;
 using Point = OpenCvSharp.Point;
 using Size = OpenCvSharp.Size;
 
-public class GridDetector
+namespace Meowdoku.Solver.ImageRecognitions;
+
+internal class GridDetector(IStringLocalizer<Localization> localizer)
 {
+    public IStringLocalizer<Localization> Localizer { get; } = localizer;
+
     public class GridCell
     {
         public int Row { get; set; }
@@ -27,10 +31,10 @@ public class GridDetector
     /// <summary>
     /// Основной метод для распознавания сетки из массива байтов
     /// </summary>
-    public static GridResult DetectGrid(ref byte[] imageData)
+    public GridResult DetectGrid(byte[] imageData)
     {
         if (imageData == null || imageData.Length == 0)
-            throw new ArgumentException("Массив байтов пуст или равен null");
+            throw new ArgumentException(Localizer[nameof(Localization.FileSizeTooSmallText)].Value);
 
         using var image = LoadImageFromBytes(imageData);
         return DetectGrid(image);
@@ -56,7 +60,7 @@ public class GridDetector
     /// <summary>
     /// Основной алгоритм распознавания сетки
     /// </summary>
-    public static GridResult DetectGrid(Mat image)
+    public GridResult DetectGrid(Mat image)
     {
         var result = new GridResult
         {
@@ -85,12 +89,6 @@ public class GridDetector
             RetrievalModes.Tree,
             ContourApproximationModes.ApproxTC89KCOS
         );
-        
-        using var ddd = new Mat(image.Height, image.Width, image.Type());
-        ddd.SetTo(new Scalar(0, 0, 0));
-        Cv2.DrawContours(ddd, contours, -1, new  Scalar(255, 255, 255));
-        using var stream1 = ddd.ToMemoryStream();
-        var bs64 = Convert.ToBase64String(stream1.ToArray());
 
         var allContours = contours
             .Select((x, i) => new
@@ -108,10 +106,7 @@ public class GridDetector
             .Select(x =>
                 x.AsValuedTreeNode(node => allContours.Where(child => child.Hierarchy.Parent == node.Id), node => node))
             .ToList();
-        
-        var fffff = roots
-            .GroupBy(x => (int)(x.Value.Area / 10) * 10)
-            .ToDictionary(x => x.Key, x => x.ToList());
+
         // 5. Фильтруем контуры, которые похожи на квадраты
         var boundingBoxes = new List<(Rect rect, Scalar color)>();
 
@@ -122,6 +117,7 @@ public class GridDetector
         {
             gameField = gameField.Children.FirstOrDefault();
         }
+
         foreach (var rootNode in gameField?.Children
                      .Where(x => x.Value.Area >= 100 && x.Value.Area <= totalArea * 0.5) ?? [])
         {
@@ -189,9 +185,6 @@ public class GridDetector
                 );
             }
 
-            using var stream = mask.ToMemoryStream();
-            var base64 = Convert.ToBase64String(stream.ToArray());
-
             // Проверяем заполненность квадрата (цветные квадраты, а не рамки)
             using var roi = new Mat(image, rect);
             var meanColor = Cv2.Mean(roi, mask.Empty() ? null! : mask);
@@ -206,7 +199,8 @@ public class GridDetector
 
         if (boundingBoxes.Count < 4)
             throw new Exception(
-                $"Не удалось найти достаточно квадратов на изображении. Найдено: {boundingBoxes.Count}");
+                Localizer[nameof(Localization.TooLittleSquaresErrorText), boundingBoxes.Count].Value
+            );
 
         // 6. Сортируем по строке и столбцу
         var maxHeight = boundingBoxes.Max(rect => rect.rect.Height);
@@ -253,7 +247,7 @@ public class GridDetector
     /// <summary>
     /// Группирует цвета с помощью кластеризации (K-Means)
     /// </summary>
-    private static GridResult ClusterColorsByGroups(GridResult result, int nClusters)
+    private GridResult ClusterColorsByGroups(GridResult result, int nClusters)
     {
         // 1. Собираем все цвета
         var allColors = result.Cells.Select(c => c.Color).ToList();
@@ -286,13 +280,15 @@ public class GridDetector
     /// <summary>
     /// Кластеризация цветов методом K-Means
     /// </summary>
-    private static List<List<Color>> ClusterColors(List<Color> colors, int k)
+    private List<List<Color>> ClusterColors(List<Color> colors, int k)
     {
         if (colors.Count == 0)
             return [];
 
         if (k <= 0)
-            throw new ArgumentException("Количество кластеров должно быть положительным");
+            throw new ArgumentException(
+                Localizer[nameof(Localization.GridDetector_ClusterColors_Clusters_count_must_be_positive)].Value,
+                nameof(k));
 
         if (colors.Count <= k)
         {
@@ -418,14 +414,14 @@ public class GridDetector
                Math.Abs(c1.B - c2.B) <= tolerance;
     }
 
-    private static (Rect rect, Scalar color)[,] SortGrid(List<(Rect rect, Scalar color)> rectangles)
+    private (Rect rect, Scalar color)[,] SortGrid(List<(Rect rect, Scalar color)> rectangles)
     {
         // Сортируем по Y (строкам)
         var sortedByY = rectangles.OrderBy(r => r.rect.Y).ToList();
 
         // Определяем строки (группируем по Y с учётом высоты)
         var rows = new List<List<(Rect rect, Scalar color)>>();
-        double tolerance = sortedByY.Average(r => r.rect.Height) * 0.5;
+        var tolerance = sortedByY.Average(r => r.rect.Height) * 0.5;
 
         foreach (var rect in sortedByY)
         {
@@ -450,18 +446,20 @@ public class GridDetector
         }
 
         // Проверяем, что все строки имеют одинаковое количество столбцов
-        int cols = rows[0].Count;
+        var cols = rows[0].Count;
         foreach (var row in rows)
         {
             if (row.Count != cols)
-                throw new Exception($"Несовпадение количества столбцов: ожидалось {cols}, получено {row.Count}");
+                throw new Exception(
+                    Localizer[nameof(Localization.ColumnsCountMismatchErrorText), cols, rows.Count]
+                        .Value);
         }
 
         // Преобразуем в двумерный массив
         var result = new (Rect rect, Scalar color)[rows.Count, cols];
-        for (int row = 0; row < rows.Count; row++)
+        for (var row = 0; row < rows.Count; row++)
         {
-            for (int col = 0; col < cols; col++)
+            for (var col = 0; col < cols; col++)
             {
                 result[row, col] = rows[row][col];
             }

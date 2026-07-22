@@ -5,14 +5,14 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <meta property="og:title" content="Meowdoku! Solver" />
-    <meta property="og:description" content="Быстро, безопасно и совершенно бесплатно решайте уровни из Meowdoku!" />
-    <meta property="og:image" content="https://meowsolv.netlify.app/assets/smile_cat.png" />
-    
+    <meta property="og:title" content="Meowdoku! Solver"/>
+    <meta property="og:description" content="Быстро, безопасно и совершенно бесплатно решайте уровни из Meowdoku!"/>
+    <meta property="og:image" content="https://meowsolv.netlify.app/assets/smile_cat.png"/>
+
     <title>Meowdoku Solver</title>
     <meta name="description" content="Быстро, безопасно и совершенно бесплатно решайте уровни из Meowdoku!">
-    
-    <base href="/"/>
+
+    <base href="/solver/"/>
     <link rel="preload" id="webassembly"/>
     <link rel="stylesheet" href="css/app.css"/>
     <link rel="icon" type="image/png" href="favicon.png"/>
@@ -23,82 +23,6 @@
 <body>
 <div class="app-content-wrapper">
     <div class="app-content">
-        <div class="app-description" style="width: 100%;">
-            <div class="description-summary">
-                <span style="font-size: 5rem;">😺</span>
-                <span>
-                    Вы устали тратить часы на сложные уровни в Meowdoku? Я создал веб-приложение, чтобы избавить вас от
-                    рутины поиска правильных комбинаций. Быстро, безопасно и совершенно бесплатно.
-                    Это не клон игры, а полноценный солвер (решатель), который анализирует любой уровень из оригинальной Meowdoku и за секунды находит единственно верное решение.
-                    Больше никаких подсказок и бесконечных переборов – просто загрузите скриншот и получите чёткий ответ.
-                </span>
-            </div>
-            <details>
-                <summary>Оригинальная игра</summary>
-                <p style="display: flex; flex-direction: row; gap: 8px;">
-                    <a href="https://play.google.com/store/apps/details?id=com.oakever.meowdoku">
-                        <img src="assets/googleplay.svg" alt="google play" style="height: 1rem"/> Google Play
-                    </a>
-                    <a href="https://apps.apple.com/us/app/meowdoku/id6761760135">
-                        <img src="assets/appstore.svg" alt="app store" style="height: 1rem"/>
-                        AppStore
-                    </a>
-                </p>
-            </details>
-            <details>
-                <summary>Работает полностью в вашем браузере – безопасно и конфиденциально</summary>
-
-                <p>
-                    Все вычисления происходят локально на вашем устройстве.
-                    Приложение не отправляет ваши скриншоты, данные уровня или историю решений на какие-либо серверы.
-                    Вся обработка изображений и логика поиска решения выполняются исключительно в браузере.
-                    Вам не нужно регистрироваться, вводить пароли или доверять свои данные третьим лицам.
-                </p>
-            </details>
-
-            <details>
-                <summary>Автоматическое распознавание уровней со скриншотов – забудьте о ручном вводе</summary>
-                <p>
-                    Вам больше не придётся переписывать цифры и цвета с экрана телефона вручную. Приложение использует
-                    интеллектуальный алгоритм компьютерного зрения, который считывает скриншот уровня Meowdoku и
-                    мгновенно воссоздаёт игровое поле.
-                    Достаточно сделать снимок экрана в игре, загрузить его в решатель – и через долю секунды Вы увидите
-                    готовое решение со всеми расставленными элементами.
-                    Это экономит время и исключает ошибки ввода.
-                </p>
-            </details>
-            <details>
-                <summary>
-                    Открытый исходный код и ваша поддержка
-                </summary>
-                <p>
-                    Я верю в прозрачность и сообщество. Весь код решателя доступен на
-                    <a href="https://github.com/TonEnfer/Meowdoku.Solver">
-                        <img style="width: 1rem" src="assets/github.svg" alt="Github">
-                        GitHub
-                    </a>, чтобы Вы могли убедиться в его безопасности, изучить алгоритмы или даже доработать проект под
-                    свои нужды. Если приложение вам помогло, пожалуйста, поставьте звезду (⭐) в репозитории проекта –
-                    это
-                    лучший способ сказать "спасибо".
-                </p>
-            </details>
-            <details>
-                <summary>Развитие и обратная связь</summary>
-                <p>
-                    Ваши отзывы и предложения вы можете оставить на странице проекта на
-                    <a href="https://github.com/TonEnfer/Meowdoku.Solver/issues">
-                        <img style="width: 1rem" src="assets/github.svg" alt="Github">
-                        GitHub
-                    </a>.
-                </p>
-            </details>
-            <p>
-                Присоединяйтесь к числу пользователей, которые уже решили сотни
-                уровней Meowdoku в два клика – без боли, без серверов, без лишних движений. Просто скриншот, и
-                решение у вас в руках!
-            </p>
-        </div>
-
         <div id="app">
             <div class="loading-progress">
                 <span style="--h:0;--d:0.0s"></span>
@@ -106,7 +30,7 @@
                 <span style="--h:30;--d:0.4s"></span>
                 <span style="--h:60;--d:0.8s;"></span>
                 <span style="--h:75;--d:1.0s">
-                <div class="loading-progress-text"></div>
+                <p class="loading-progress-text"></p>
             </span>
                 <span style="--h:90;--d:1.2s"></span>
                 <span style="--h:120;--d:1.6s"></span>

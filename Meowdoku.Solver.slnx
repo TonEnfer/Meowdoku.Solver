@@ -1,3 +1,5 @@
 <Solution>
+  <Project Path="Meowdoku.Solver.Static/Meowdoku.Solver.Static.csproj" />
+  <Project Path="Meowdoku.Solver.Tasks/Meowdoku.Solver.Tasks.csproj" />
   <Project Path="Meowdoku.Solver/Meowdoku.Solver.csproj" />
 </Solution>

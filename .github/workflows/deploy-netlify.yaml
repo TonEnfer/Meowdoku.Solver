@@ -2,7 +2,7 @@ name: Deploy Blazor WASM to Netlify
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -20,50 +20,86 @@ env:
   BINARYEN_SHA256: b5bf1f0eaf17c63ee588ff7a5954dc8f6ce2c26989051c66f24dfe9ece3e46db
 
 jobs:
-  build:
+  build-static:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Build
+        working-directory: Meowdoku.Solver.Static
+        run: dotnet build -c Release -o ./release
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: "static-part"
+          path: "Meowdoku.Solver.Static/release/wwwroot"
+
+  build-app:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v7
+      - uses: actions/checkout@v7
 
-    - name: Setup .NET 10
-      uses: actions/setup-dotnet@v6
-      with:
-        dotnet-version: '10.0.x'
-        
-    - name: Restore workloads
-      run: dotnet workload restore
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: "10.0.x"
 
-    - name: Work around outdated bundled wasm-opt (dotnet/runtime#114723)
-      run: |
-        set -euo pipefail
-        WASM_OPT_PATH=$(find /usr/share/dotnet/packs -type f -name 'wasm-opt' | head -1)
-        echo "Patching: $WASM_OPT_PATH"
-        curl -sSL -o binaryen.tar.gz "https://github.com/WebAssembly/binaryen/releases/download/${BINARYEN_VERSION}/binaryen-${BINARYEN_VERSION}-x86_64-linux.tar.gz"
-        echo "${BINARYEN_SHA256}  binaryen.tar.gz" | sha256sum -c -
-        tar xzf binaryen.tar.gz
-        cp "binaryen-${BINARYEN_VERSION}/bin/wasm-opt" "$WASM_OPT_PATH"
-        "$WASM_OPT_PATH" --version
-        
-    - name: Publish Application
-      run: dotnet publish -c Release -o release
-    - uses: actions/upload-artifact@v4
-      with:
-        name: 'site'
-        path: 'release/wwwroot'
+      - name: Restore workloads
+        run: dotnet workload restore
+
+      - name: Work around outdated bundled wasm-opt (dotnet/runtime#114723)
+        run: |
+          set -euo pipefail
+          WASM_OPT_PATH=$(find /usr/share/dotnet/packs -type f -name 'wasm-opt' | head -1)
+          echo "Patching: $WASM_OPT_PATH"
+          curl -sSL -o binaryen.tar.gz "https://github.com/WebAssembly/binaryen/releases/download/${BINARYEN_VERSION}/binaryen-${BINARYEN_VERSION}-x86_64-linux.tar.gz"
+          echo "${BINARYEN_SHA256}  binaryen.tar.gz" | sha256sum -c -
+          tar xzf binaryen.tar.gz
+          cp "binaryen-${BINARYEN_VERSION}/bin/wasm-opt" "$WASM_OPT_PATH"
+          "$WASM_OPT_PATH" --version
+
+      - name: Publish Application
+        run: dotnet publish -c Release -o release
+      - uses: actions/upload-artifact@v4
+        with:
+          name: "app-part"
+          path: "release/wwwroot"
+  merge-parts:
+    runs-on: ubuntu-latest
+    needs: [build-app, build-static]
+    steps:
+      - name: Download build artifacts
+        id: download-artifacts
+        uses: actions/download-artifact@v4
+
+      - run: ls -la
+        working-directory: ${{steps.download-artifacts.outputs.download-path}}
+
+      - run: mkdir static-part/solver && cp -a app-part/ static-part/solver/
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: "site"
+          path: "static-part"
+
   publish-on-netlify:
     runs-on: ubuntu-latest
-    needs: build
+    needs: merge-parts
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: 'site'
-          path: './'
-      - run: ls ./
+          name: "site"
+          path: "./"
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v4.0
         with:
-          publish-dir: './'
+          publish-dir: "./"
           production-branch: main
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: "Deploy from GitHub Actions"

@@ -13,6 +13,7 @@
      calls. Allow those to stay unresolved; they only fail if actually invoked at runtime. -->
         <WasmAllowUndefinedSymbols>true</WasmAllowUndefinedSymbols>
         <WasmInitialHeapSize>134217728</WasmInitialHeapSize>
+        <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
     </PropertyGroup>
 
     <ItemGroup>
@@ -22,6 +23,10 @@
         <PackageReference Include="OpenCvSharp5" Version="5.0.0.20260718" />
         <PackageReference Include="OpenCvSharp5.runtime.wasm" Version="5.0.0.20260718" />
         <PackageReference Include="TreeStructures" Version="2.2.8" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\solver\index.html" />
     </ItemGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -69,7 +74,7 @@
       a newer build); harmless otherwise since Debug builds don't invoke this optimization pass.
     -->
     <ItemGroup Condition="'$(WasmBuildNative)' == 'true'">
-        <WasmOptConfigurationFlags Include="--enable-nontrapping-float-to-int" />
+        <WasmOptConfigurationFlags Include="--enable-nontrapping-float-to-int"/>
         <WasmOptConfigurationFlags Include="--enable-bulk-memory-opt" />
         <WasmOptConfigurationFlags Include="--enable-call-indirect-overlong" />
         <WasmOptConfigurationFlags Include="--enable-multivalue" />
@@ -77,6 +82,19 @@
         <WasmOptConfigurationFlags Include="--enable-reference-types" />
         <WasmOptConfigurationFlags Include="--enable-sign-ext" />
         <WasmOptConfigurationFlags Include="--enable-threads" />
+    </ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Update="Localization.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Localization.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+    <ItemGroup>
+      <Compile Update="Localization.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Localization.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <!--

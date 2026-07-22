@@ -1,18 +1,19 @@
 @page "/"
 @using System.Drawing
-
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<Localization> Localizer
 <div class="page-content">
     <div style="display: flex; flex-direction: column; align-items: center;">
-        <label class="file-selector" for="image-selector">Загрузите скриншот уровня</label>
+        <label class="file-selector" for="image-selector">@Localizer[nameof(Localization.LoadScreenText)].Value</label>
         <InputFile id="image-selector" hidden OnChange="LoadFileAsync"/>
         <div>@DetectionResult</div>
     </div>
-    <div>или</div>
-    <div>раскрасьте вручную:</div>
+    <div>@Localizer[nameof(Localization.OrText)].Value</div>
+    <div>@Localizer[nameof(Localization.ColorManuallyText)].Value</div>
     <div class="game-settings">
-        <div>Размер поля</div>
+        <div>@Localizer[nameof(Localization.GameFieldSizeText)].Value</div>
         <input style="width: 100%; height: 2rem; padding: 8px;" @bind="GameSize"/>
-        <div>Доступные цвета</div>
+        <div>@Localizer[nameof(Localization.AvailableColorsText)].Value</div>
         <div class="game-colors-wrapper">
             @foreach (var color in Colors.TakeWhile(c => int.Parse(c.Key) <= GameSize))
             {
@@ -45,7 +46,7 @@
     </div>
     <div style="display: flex; flex-direction: row; gap: 16px; width: 100%; height: auto; justify-content: center;
     align-items: center;">
-        <button @onclick="OnClickSolveAsync">Решить
+        <button @onclick="OnClickSolveAsync">@Localizer[nameof(Localization.SolveLevelText)].Value
         </button>
         <button
             @onclick="()=>Game.Cells.ForEach(x => {
@@ -54,7 +55,7 @@
                 Colors = new Dictionary<string, string>(DefaultColors);;
                 x.Color = Colors.First().Key;
             })">
-            Очистить
+            @Localizer[nameof(Localization.ClearGameFieldText)].Value
         </button>
         <div>@Result</div>
     </div>

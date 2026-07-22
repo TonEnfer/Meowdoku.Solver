@@ -1,3 +1,4 @@
+using Meowdoku.Solver.ImageRecognitions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
@@ -7,9 +8,8 @@ public partial class Solver : ComponentBase, IDisposable
 {
     private IDisposable? _subscription;
 
-    [Parameter]
-    public string? DetectionResult { get; set; }
-    
+    [Parameter] public string? DetectionResult { get; set; }
+
     private string? Result { get; set; }
 
     private byte[] ImgBytes
@@ -21,6 +21,7 @@ public partial class Solver : ComponentBase, IDisposable
             StateHasChanged();
         }
     } = [];
+
     private Dictionary<string, string> DefaultColors = new()
     {
         ["1"] = "#fbd983",
@@ -36,7 +37,7 @@ public partial class Solver : ComponentBase, IDisposable
         ["11"] = "#00A5FF",
         ["12"] = "#A5FF00",
     };
-    
+
     private Dictionary<string, string> Colors = new()
     {
         ["1"] = "#fbd983",
@@ -77,7 +78,6 @@ public partial class Solver : ComponentBase, IDisposable
             Game = new Game(field);
             Result = null;
             DetectionResult = null;
-
         }
     } = 4;
 
@@ -90,18 +90,20 @@ public partial class Solver : ComponentBase, IDisposable
     {
         _subscription?.Dispose();
     }
-    
+
     private async Task OnClickSolveAsync()
     {
         Result = null;
-        Result = await Game.SolveAsync() ? " 🎉Решено!" : "Не получилось решить";
+        Result = await Game.SolveAsync()
+            ? Localizer[nameof(Localization.SuccessSolutionResultText)].Value
+            : Localizer[nameof(Localization.ErrorSolutionResultText)].Value;
     }
 
     private async Task LoadFileAsync(InputFileChangeEventArgs e)
     {
         Result = null;
         DetectionResult = null;
-        
+
         // Get the selected file
         var file = e.File;
 
@@ -121,23 +123,29 @@ public partial class Solver : ComponentBase, IDisposable
 
         try
         {
-            var result = GridDetector.DetectGrid(ref fileBytes);
+            var detector = new GridDetector(Localizer);
+            var result = detector.DetectGrid( fileBytes);
+            
             if (result.Cols != result.Rows)
             {
-                DetectionResult = "При распознавании произошла ошибка: обнаружено количество столбцов, не равное количеству строк";
+                DetectionResult = Localizer[
+                    nameof(Localization.ErrorGridDetectionText),
+                    Localizer[nameof(Localization.GridDetectionRowColCountNotEqualText)].Value
+                ].Value;
             }
 
             GameSize = result.Cols;
-            
+
             Colors.Clear();
-            
-            foreach (var color in result.Cells.Select(x => x.Color).Distinct().Select((x, i) => (index: (i + 1).ToString(), name: $"#{x.Name[2..]}")))
+
+            foreach (var color in result.Cells.Select(x => x.Color).Distinct()
+                         .Select((x, i) => (index: (i + 1).ToString(), name: $"#{x.Name[2..]}")))
             {
                 Colors.Add(color.index, color.name);
             }
-            
+
             Game = new Game(result.Cols);
-            
+
             foreach (var gameCell in Game.Cells)
             {
                 var originalCell = result.Cells.First(x => x.Col == gameCell.Index.Y && x.Row == gameCell.Index.X);
@@ -150,7 +158,7 @@ public partial class Solver : ComponentBase, IDisposable
         }
         catch (Exception ex)
         {
-            DetectionResult = $"При распознавании произошла ошибка: {ex.Message}";
+            DetectionResult = Localizer[nameof(Localization.ErrorGridDetectionText), ex.Message].Value;
         }
     }
 }

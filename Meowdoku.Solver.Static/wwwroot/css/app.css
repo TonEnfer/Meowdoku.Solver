@@ -1,0 +1,344 @@
+html, body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(145deg, #f6f9fc 0%, #e9f1f8 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0 1.5rem 1.5rem;
+    line-height: 1.6;
+    color: #1e293b;
+}
+
+button {
+    background: #f8fafc;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    padding: 8px;
+    font-size: 1rem;
+}
+
+input {
+    background: #f8fafc;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    padding: 8px;
+    font-size: 1rem;
+}
+
+/* ----- Обёртка контента ----- */
+.app-content-wrapper {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 100vh;
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ----- Карточка с контентом ----- */
+.app-content {
+    width: 100% !important;
+    max-width: 820px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 2rem;
+    box-shadow: 0 20px 60px -12px rgba(0, 20, 40, 0.25),
+    0 8px 24px -6px rgba(0, 0, 0, 0.05);
+    padding: 2.5rem 2.8rem;
+    transition: box-shadow 0.3s ease;
+}
+
+.app-header {
+    width: 100% !important;
+    max-width: 820px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 0 0 2rem 2rem;
+    box-shadow: 0 10px 10px -10px rgba(0, 20, 40, 0.25),
+    0 10px 10px -5px rgba(0, 0, 0, 0.05);
+    padding: 1rem 2rem;
+    /*transition: box-shadow 0.3s ease;*/
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+}
+
+.app-header .left {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* ----- Текстовое описание ----- */
+.app-description {
+    width: 100% !important;
+}
+
+.app-description .description-summary {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+}
+
+.app-description p {
+    margin-bottom: 1.2rem;
+    font-size: 1.05rem;
+    color: #334155;
+}
+
+.app-description p:last-of-type {
+    margin-bottom: 0;
+}
+
+/* ----- Аккордеон (details) ----- */
+.app-description details {
+    margin: 1.2rem 0;
+    border: 1px solid #e2e8f0;
+    border-radius: 1.2rem;
+    background: #f8fafc;
+    transition: background 0.2s, border-color 0.2s;
+    overflow: hidden;
+}
+
+.app-description details:hover {
+    border-color: #b9c7da;
+}
+
+.app-description summary {
+    padding: 1rem 1.5rem;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: #0f172a;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: color 0.2s;
+    user-select: none;
+}
+
+.app-description summary::-webkit-details-marker {
+    display: none;
+}
+
+/* Кастомный маркер (плюс / минус) */
+.app-description summary::before {
+    content: '+';
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    background: #dbeafe;
+    color: #2563eb;
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1;
+    flex-shrink: 0;
+    transition: background 0.2s, transform 0.25s ease;
+}
+
+.app-description details[open] summary::before {
+    content: '−';
+    background: #bfdbfe;
+    transform: rotate(0deg);
+}
+
+.app-description details[open] summary {
+    color: #1e3a8a;
+}
+
+.app-description details[open] {
+    background: #ffffff;
+    border-color: #bfdbfe;
+}
+
+/* Содержимое внутри аккордеона */
+.app-description details p {
+    padding: 0.2rem 1.5rem 1.5rem 1.5rem;
+    margin: 0;
+    font-size: 0.98rem;
+    color: #475569;
+    animation: fadeSlide 0.3s ease-out;
+}
+
+@keyframes fadeSlide {
+    0% {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ----- Адаптивность ----- */
+@media (max-width: 640px) {
+    body {
+        padding: 0;
+    }
+
+    .app-content {
+        padding: 1.5rem 1.2rem;
+        border-radius: 1.5rem;
+    }
+
+    .app-description .description-summary {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+    }
+
+    .app-description p {
+        font-size: 0.95rem;
+    }
+
+    .app-description summary {
+        font-size: 0.95rem;
+        padding: 0.8rem 1rem;
+    }
+
+    .app-description summary::before {
+        width: 1.4rem;
+        height: 1.4rem;
+        font-size: 1rem;
+    }
+
+    .app-description details p {
+        padding: 0 1rem 1.2rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* ----- Индикатор загрузки (анимированные полоски) ----- */
+#app {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.loading-progress {
+    width: 100%;
+    min-height: 100px;
+    aspect-ratio: 1/1;
+
+    display: grid;
+
+    /* автоматически заполняет контейнер */
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+
+    gap: 8px;
+    padding: 8px;
+    box-sizing: border-box;
+
+    overflow: hidden;
+
+
+}
+
+.loading-progress span {
+    border-radius: 12px;
+    aspect-ratio: 1/1;
+    background: hsl(var(--h), 80%, 55%);
+
+    animation: pulse 4s ease-in-out infinite;
+    animation-delay: var(--d);
+
+    filter: saturate(0%);
+
+
+}
+
+.loading-progress .loading-progress-text {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    content: var(--blazor-load-percentage-text, "Loading");
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        filter: saturate(0%);
+    }
+
+    50% {
+        filter: saturate(100%);
+    }
+}
+
+.lang-selector {
+    position: relative;
+    display: inline-block;
+}
+
+.drop-btn {
+    background-color: #dbeafe;
+    color: #2563eb;
+    padding: 12px 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 1.5rem;
+}
+
+/* Выпадающий список (скрыт по умолчанию) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 1.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Ссылки внутри списка */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Изменение цвета ссылок при наведении */
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Показываем список при наведении на контейнер */
+.lang-selector:hover .dropdown-content {
+    display: block;
+}

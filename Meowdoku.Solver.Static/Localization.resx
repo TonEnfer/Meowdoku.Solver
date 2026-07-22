@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="page-title" xml:space="preserve">
+        <value>Free Meowdoku! Level Solver: Find the Answer to Any Cat Puzzle</value>
+    </data>
+    <data name="page-summary-descr" xml:space="preserve">
+        <value>Solve Meowdoku levels quickly, safely, and completely free! Find solutions, answers, and hints for any level.</value>
+    </data>
+    <data name="descr-summary" xml:space="preserve">
+        <value>Tired of wasting hours on difficult Meowdoku levels? I've created a web app to free you from the tedious task of searching for the right combinations. It's fast, secure, and completely free.
+This isn't a clone of the game, but a fully-fledged solver that analyzes any level from the original Meowdoku and finds the only correct solution in seconds.
+No more hints or endless guessing — just upload a screenshot and get a clear answer.</value>
+    </data>
+    <data name="original-game-title" xml:space="preserve">
+        <value>Original game links</value>
+    </data>
+    <data name="local-work-title" xml:space="preserve">
+        <value>Works entirely in your browser – secure and private</value>
+    </data>
+    <data name="local-work-description" xml:space="preserve">
+        <value>All calculations occur locally on your device.
+The app does not send your screenshots, level data, or solution history to any servers.
+All image processing and solution logic are performed entirely in the browser.
+You don't need to register, enter passwords, or trust your data to third parties.</value>
+    </data>
+    <data name="auto-recognition-title" xml:space="preserve">
+        <value>Automatic level recognition from screenshots – forget about manual input</value>
+    </data>
+    <data name="auto-recognition-description" xml:space="preserve">
+        <value>You'll no longer have to manually type numbers and colors from your phone screen. The app uses an intelligent computer vision algorithm that reads a screenshot of a Meowdoku level and instantly recreates the game board. Simply take a screenshot in the game, upload it to the solver, and in a split second, you'll see the completed solution with all the elements in place. This saves time and eliminates input errors.</value>
+    </data>
+    <data name="open-source-title" xml:space="preserve">
+        <value>Open source and your support</value>
+    </data>
+    <data name="open-source-description" xml:space="preserve">
+        <value>I believe in transparency and community. The entire solver code is available on &lt;a href="https://github.com/TonEnfer/Meowdoku.Solver"&gt; &lt;img style="width: 1rem" src="assets/github.svg" alt="Github"&gt; GitHub &lt;/a&gt;, so you can verify its security, study the algorithms, or even customize the project to suit your needs. If the app has helped you, please leave a star (⭐) in the project repository—it's the best way to say "thank you."</value>
+    </data>
+    <data name="feedback-title" xml:space="preserve">
+        <value>Development and feedback</value>
+    </data>
+    <data name="feedback-description" xml:space="preserve">
+        <value>You can leave your feedback and suggestions on the project page at &lt;a href="https://github.com/TonEnfer/Meowdoku.Solver/issues"&gt; &lt;img style="width: 1rem" src="assets/github.svg" alt="Github"&gt; GitHub&lt;/a&gt;.</value>
+    </data>
+    <data name="sell-text" xml:space="preserve">
+        <value>Join the ranks of users who have already solved hundreds of Meowdoku levels in just two clicks – no pain, no servers, no fuss. Just a screenshot, and the solution is yours!</value>
+    </data>
+    <data name="start-button-text" xml:space="preserve">
+        <value>Find a solution!</value>
+    </data>
+</root>

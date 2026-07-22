@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Update="Localization.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>Localization.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="Localization.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Localization.resx</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Meowdoku.Solver.Tasks\Meowdoku.Solver.Tasks.csproj"/>
+    </ItemGroup>
+
+    <UsingTask TaskName="LocalizeHtmlTask" AssemblyFile="$(OutDir)LocalizeHtmlTask.dll"/>
+    
+    <!-- Цель, которая будет запускать задачу -->
+    <Target Name="LocalizeHtml" AfterTargets="Build">
+        <LocalizeHtmlTask
+                ResourceFile="$(ProjectDir)Localization.resx"
+                SourceFolder="$(ProjectDir)wwwroot"
+                OutputFolder="$(OutputPath)wwwroot"
+        />
+    </Target>
+    
+    <ItemGroup>
+        <Content Include="wwwroot/**" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always"/>
+    </ItemGroup>
+
+</Project>
