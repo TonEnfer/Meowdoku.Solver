@@ -9,3 +9,7 @@ The app allows you to solve levels from the mobile game Meowdoku! ([Google Play]
 Levels are loaded from the game by recognizing a screenshot of the level or manually.
 
 The app is built using [Blazor WASM](https://learn.microsoft.com/ru-ru/aspnet/core/blazor/hosting-models?view=aspnetcore-10.0#blazor-webassembly) and [OpenCV](https://opencv.org/), allowing it to run entirely client-side, without the need for a backend.
+
+# Check it out in person
+
+The application is currently available at [meowsolv.netlify.app](https://meowsolv.netlify.app/)
