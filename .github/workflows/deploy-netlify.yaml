@@ -81,7 +81,7 @@ jobs:
       - run: ls -la
         working-directory: ${{steps.download-artifacts.outputs.download-path}}
 
-      - run: mkdir static-part/solver && cp -a app-part/ static-part/solver/
+      - run: mkdir static-part/solver && cp -a ./app-part/* ./static-part/solver/
 
       - uses: actions/upload-artifact@v4
         with:
