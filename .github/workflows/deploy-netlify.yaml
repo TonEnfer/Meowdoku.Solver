@@ -32,7 +32,7 @@ jobs:
 
       - name: Build
         working-directory: Meowdoku.Solver.Static
-        run: dotnet build -c Release -o ./release
+        run: dotnet publish -c Release -o ./release
 
       - uses: actions/upload-artifact@v4
         with:
