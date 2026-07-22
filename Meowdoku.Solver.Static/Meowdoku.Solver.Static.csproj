@@ -27,12 +27,24 @@
 
     <UsingTask TaskName="LocalizeHtmlTask" AssemblyFile="$(OutDir)LocalizeHtmlTask.dll"/>
     
-    <!-- Цель, которая будет запускать задачу -->
+    <!-- Таргет для сборки -->
     <Target Name="LocalizeHtml" AfterTargets="Build">
         <LocalizeHtmlTask
                 ResourceFile="$(ProjectDir)Localization.resx"
                 SourceFolder="$(ProjectDir)wwwroot"
                 OutputFolder="$(OutputPath)wwwroot"
+        />
+    </Target>
+
+    <!-- ======== Таргет для публикации ======== -->
+    <Target Name="LocalizeHtmlForPublish"
+            BeforeTargets="Publish"
+            Condition=" '$(PublishDir)' != '' ">
+        <!-- Генерируем непосредственно в папку публикации -->
+        <LocalizeHtmlTask
+                ResourceFile="$(ProjectDir)Localization.resx"
+                SourceFolder="$(ProjectDir)wwwroot"
+                OutputFolder="$(PublishDir)wwwroot"
         />
     </Target>
     
