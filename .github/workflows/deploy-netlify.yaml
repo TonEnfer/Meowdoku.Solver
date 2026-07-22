@@ -65,11 +65,12 @@ jobs:
           "$WASM_OPT_PATH" --version
 
       - name: Publish Application
+        working-directory: Meowdoku.Solver
         run: dotnet publish -c Release -o release
       - uses: actions/upload-artifact@v4
         with:
           name: "app-part"
-          path: "release/wwwroot"
+          path: "Meowdoku.Solver/release/wwwroot"
   merge-parts:
     runs-on: ubuntu-latest
     needs: [build-app, build-static]
